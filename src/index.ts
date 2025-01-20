@@ -1,12 +1,14 @@
+import { ErrorCodeEnum } from "./enums/error-code.enum";
 import "dotenv/config";
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import session from "cookie-session";
 import { config } from "./config/app.config";
 import connectDatabase from "./config/database.config";
-import { errorHandler } from "./middlewares/error.middleware";
+import { errorHandler } from "./middlewares/error.handler.middleware";
 import { HTTPSTATUS } from "./config/http.config";
 import { asyncHandler } from "./middlewares/asyncHandler.middleware";
+import { AppError } from "./utils/appError";
 
 const app = express();
 const BASE_PATH = config.BASE_PATH;
@@ -32,9 +34,14 @@ app.use(
 
 app.get(
   `/`,
-  asyncHandler(async(req: Request, res: Response, next: NextFunction) => {
-    throw new Error("test error");
-    res.status(HTTPSTATUS.OK).json({
+  asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+
+    // throw new BadRequestException("Bad request")
+  
+
+
+    
+    return res.status(HTTPSTATUS.OK).json({
       message: "Hello...",
     });
   })
